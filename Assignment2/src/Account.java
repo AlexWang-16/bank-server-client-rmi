@@ -268,7 +268,8 @@ public String extractFirstName() {
    * @return 		The account's details in a formatted string
    * @override
    */
-  public String toString (){
+  @Override
+public String toString (){
     String formattedBalance = currencyFormat.format(this.currentBalance);
 
     StringBuffer details = new StringBuffer("");
@@ -292,7 +293,8 @@ public String extractFirstName() {
    * @override
    *
    */
-  public boolean equals (Object foreignObject) {
+  @Override
+public boolean equals (Object foreignObject) {
 
     boolean result = false;
 
@@ -316,7 +318,8 @@ public String extractFirstName() {
    * @return  The account's unique 32-bit hash code
    * @override
    */
-  public int hashCode() {
+  @Override
+public int hashCode() {
     int hash = 47;
     hash *= 3 + firstName.hashCode();
     hash *= 5 + lastName.hashCode();

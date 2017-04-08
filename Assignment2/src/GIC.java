@@ -190,10 +190,11 @@ public class GIC extends Account implements Taxable, Serializable {
 	 * Calculates the balance at maturity
 	 * @return	Balance at maturity
 	 */
+	@Override
 	public double getBalance(){
 		
 		BigDecimal startingBalance = new BigDecimal(super.getBalance());
-		BigDecimal interest = new BigDecimal(Math.pow((double) 1 
+		BigDecimal interest = new BigDecimal(Math.pow(1 
 							+ (this.annualInterestRate / 100), 
 								this.investmentPeriod));
 		
@@ -208,6 +209,7 @@ public class GIC extends Account implements Taxable, Serializable {
 	 * Returns a string with the generated tax statement
 	 * @return	Tax statement
 	 */
+	@Override
 	public String createTaxStatement() {
 		String interestIncome = currencyFormat.format(this.getInterestIncome());
 		
@@ -233,6 +235,7 @@ public class GIC extends Account implements Taxable, Serializable {
 	 * Returns the calculated tax amount
 	 * @return	The tax amount
 	 */
+	@Override
 	public double getTaxAmount() {
 		calculateTax(this.taxRate);
 		return this.taxAmount;
@@ -243,6 +246,7 @@ public class GIC extends Account implements Taxable, Serializable {
 	 * 
 	 * @param taxRate	The tax rate
 	 */
+	@Override
 	public void calculateTax(int taxRate) {
 		setTaxRate(taxRate);
 		calculateInterestIncome();
@@ -277,6 +281,7 @@ public class GIC extends Account implements Taxable, Serializable {
 	 * @return		GIC account details
 	 * @override 
 	 */
+	@Override
 	public String toString(){
 		StringBuffer output = new StringBuffer("");
 		String balanceAtMaturity = currencyFormat.format(getBalance());
@@ -319,6 +324,7 @@ public class GIC extends Account implements Taxable, Serializable {
 	 * Deposits the user specified amount, if the amount is valid.
 	 * @override
 	 */
+	@Override
 	public void deposit(double amount){
 		if (transactionIsValid(amount)) {
 			super.setCurrentBalance(super.getBalance() + amount);
@@ -340,6 +346,7 @@ public class GIC extends Account implements Taxable, Serializable {
 	 * Return false to refuse allowing withdraw.
 	 * @return	False
 	 */
+	@Override
 	public boolean withdraw(double amount){
 		return false;
 	}
@@ -354,6 +361,7 @@ public class GIC extends Account implements Taxable, Serializable {
 	 * @return	True, if foreignObject is the same as this
 	 * 			account. Otherwise return false.
 	 */
+	@Override
 	public boolean equals(Object foreignObject){
 		if (foreignObject instanceof GIC){
 			GIC account = (GIC) foreignObject;
@@ -368,6 +376,7 @@ public class GIC extends Account implements Taxable, Serializable {
 	 * @return	A 32bit unique hash code
 	 * @override
 	 */
+	@Override
 	public int hashCode(){
 		int hash = 18;
 		hash *= 10 + super.hashCode();

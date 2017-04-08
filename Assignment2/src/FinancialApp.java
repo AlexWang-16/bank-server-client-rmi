@@ -418,7 +418,7 @@ public class FinancialApp {
 	 *  
 	 * @param bank		The bank to load the accounts from
 	 */
-	private static void displayAccountsByBalance(RemoteBank bank){
+	private static void displayAccountsByBalance(RemoteBank bank) throws RemoteException{
 		input.nextLine();
 		ArrayList<Account> searchResults = new ArrayList<Account>();
 		double balance = 0;
@@ -438,19 +438,16 @@ public class FinancialApp {
 		 //Search
 		 try{
 			 searchResults = bank.searchAccountByBalance(balance);
+			
+			 //Display
+			 for (int i = 0; i < searchResults.size(); i++){
+				 displayAccount(searchResults.get(i));
+			 }
 		 }catch (NoAccountException e){
 			 System.out.println(e);
 		 }catch (RemoteException e){
-			 System.out.println("Error: Remote Exception occured while search account by balance.");
-				System.out.println("Standby, printing stack trace...");
-				e.printStackTrace();
-		 }
-		
-		 //Display
-		 for (int i = 0; i < searchResults.size(); i++){
-			 displayAccount(searchResults.get(i));
-		 }
-		 
+			 throw e;
+		 } 
 	}
 	
 	/**
@@ -490,8 +487,20 @@ public class FinancialApp {
 		//Get all accounts by name
 		try{
 			searchResults = bank.searchByAccountName(accountName);
+			int numOfStatements = 0;
 			
-			 System.out.println("\nTax Statement(s) of " + searchResults[0].getFullName() + '\n');
+			for (int i = 0; i < searchResults.length; i++){
+				if (searchResults[i] instanceof GIC || searchResults[i] instanceof Savings){
+					numOfStatements++;
+				}
+			}
+			
+			if (numOfStatements > 1){
+				System.out.println("\nTax Statement(s) of " + searchResults[0].getFullName() + '\n');
+			}else{
+				System.out.printf("\n%s does not have any taxable accounts.\n\n", searchResults[0].getFullName());
+			}
+			
 				//Check if account instaneof GIC/Savings
 				for (int i = 0; i < searchResults.length; i++){
 					if (searchResults[i] instanceof GIC){
@@ -514,7 +523,6 @@ public class FinancialApp {
 			System.out.println("Standby, printing stack trace...");
 			e.printStackTrace();
 		}
-		
 
 	}
 	
@@ -558,7 +566,6 @@ public class FinancialApp {
 				case 5:					// Display Accounts
 					int selection = getDisplaySelection();
 					if (selection == 1){
-						//TODO - Display accounts by name (menu)
 						displayAccountsByName(serverBank);
 					}else if (selection == 2){
 						displayAccountsByBalance(serverBank);
@@ -569,7 +576,6 @@ public class FinancialApp {
 					break;
 				case 6:					//Display a tax statement
 					displayTaxStatement(serverBank);
-					//System.out.println("Display tax statement is currently disabled.");
 					break;
 				case 7:
 					System.out.println("Goodbye!\n");

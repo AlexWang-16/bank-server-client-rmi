@@ -38,6 +38,7 @@ public class BankImpl extends UnicastRemoteObject implements RemoteBank {
 	 * @return					True if account successfully added
 	 * @throws					RemoteException
 	 */
+	@Override
 	public boolean addAccount(Account account) throws RemoteException
 	{
 			return bank.addAccount(account);
@@ -54,6 +55,7 @@ public class BankImpl extends UnicastRemoteObject implements RemoteBank {
 	 * @return						The deleted account 
 	 * @throws						Remote Exception
 	 */
+	@Override
 	public Account deleteAccount(String accountNumber) throws NoAccountException, RemoteException
 	{
 		return bank.removeAccount(accountNumber);
@@ -70,6 +72,7 @@ public class BankImpl extends UnicastRemoteObject implements RemoteBank {
 	 * @return						An ArrayList of Accounts that match the balance
 	 * @throws						Remote Exception
 	 */
+	@Override
 	public ArrayList<Account> searchAccountByBalance(double balance) throws RemoteException, NoAccountException
 	{
 		return bank.search(balance);
@@ -86,6 +89,7 @@ public class BankImpl extends UnicastRemoteObject implements RemoteBank {
 	 * @return						Account[] with accounts found with specified name
 	 * @throws						Remote Exception
 	 */
+	@Override
 	public Account[] searchByAccountName (String accountName) throws RemoteException, NoAccountException
 	{
 		return bank.searchByAccountName(accountName);

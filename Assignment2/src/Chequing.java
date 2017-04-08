@@ -166,6 +166,7 @@ public class Chequing extends Account implements Serializable {
 	 * @param	amount		The deposit amount
 	 * @override
 	 */
+	@Override
 	public void deposit (double amount){
 		if (transactionIsValid(amount, Transaction.DEPOSIT)){
 			storeAmountToArray(amount);
@@ -184,6 +185,7 @@ public class Chequing extends Account implements Serializable {
 	 * @return	True if withdraw is successful. False otherwise.
 	 * @override
 	 */
+	@Override
 	public boolean withdraw(double amount){
 		if (transactionIsValid(amount, Transaction.WITHDRAW)){
 			storeAmountToArray(-amount);
@@ -278,6 +280,7 @@ public class Chequing extends Account implements Serializable {
 	 * @Override 
 	 * 
 	 */
+	@Override
 	public double getBalance(){
 		BigDecimal currentBalance = new BigDecimal(super.getBalance());
 		currentBalance = currentBalance.subtract(this.totalServiceCharges); 
@@ -291,6 +294,7 @@ public class Chequing extends Account implements Serializable {
 	 * 
 	 * @return	True, if both accounts are identical
 	 */
+	@Override
 	public boolean equals(Object foreignObject){
 		if (foreignObject instanceof Chequing){
 			Chequing chequingAccount = (Chequing) foreignObject;
@@ -307,6 +311,7 @@ public class Chequing extends Account implements Serializable {
 	 * 
 	 * @return	Chequing account hash code
 	 */
+	@Override
 	public int hashCode(){
 		int hash = 63;
 		hash += super.hashCode();
@@ -376,6 +381,7 @@ public class Chequing extends Account implements Serializable {
 	 * @return		Chequing account details
 	 * @override
 	 */
+	@Override
 	public String toString(){
 		// Formatting currency
 		String serviceChargePerTransaction = currencyFormat.format(this.serviceChargePerTransaction.doubleValue());

@@ -158,6 +158,7 @@ import java.io.Serializable;
 	 *
 	 * @return amount of tax deducted
 	 */
+	@Override
 	public double getTaxAmount() {
 		calculateAmountOfTax();
 		return this.taxAmount.doubleValue();
@@ -169,6 +170,7 @@ import java.io.Serializable;
 	 *
 	 * @param taxRate	The tax rate used to calculate tax
 	 */
+	@Override
 	public void calculateTax(int taxRate) {
 		setTaxRate(taxRate);
 		calculateInterestIncome();
@@ -233,6 +235,7 @@ import java.io.Serializable;
 	 *
 	 * @return	The tax statement
 	 */
+	@Override
 	public String createTaxStatement() {
 		// Formatting currency
 		String interestIncome = currencyFormat.format(this.getInterestIncome());
@@ -255,6 +258,7 @@ import java.io.Serializable;
 	 * 			False, otherwise.
 	 * @override
 	 */
+	@Override
 	public boolean equals (Object foreignObject){
 		if (foreignObject instanceof Savings){
 			Savings savingsAccount = (Savings) foreignObject;
@@ -277,6 +281,7 @@ import java.io.Serializable;
 	 * @return		Savings account details
 	 * @override
 	 */
+	@Override
 	public String toString(){
 
 		// Formatting Currency
@@ -299,6 +304,7 @@ import java.io.Serializable;
 	 * @return The final balance
 	 * @override
 	 */
+	@Override
 	public double getBalance(){
 		this.calculateInterestIncome();
 		BigDecimal finalBalance = new BigDecimal(super.getBalance()); 
@@ -311,6 +317,7 @@ import java.io.Serializable;
 	 *
 	 * @return	The unique hashCode for the savings account
 	 */
+	@Override
 	public int hashCode(){
 		int hash = 52;
 		hash *= 8 + super.hashCode();

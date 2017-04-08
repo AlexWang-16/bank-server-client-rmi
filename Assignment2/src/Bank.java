@@ -208,7 +208,8 @@ public class Bank {
      * @param foreignObject     The incoming object to be checked
      * @return                  True if both objects match or false otherwise
      */
-    public boolean equals (Object foreignObject) {
+    @Override
+	public boolean equals (Object foreignObject) {
       // Returns true if the foreignObject and the instance object invoking
       // it are the same account objects
       boolean thisBankEqualForeignObject = false;
@@ -242,7 +243,8 @@ public class Bank {
      *
      * @return                 The bank's information
      */
-    public String toString() {
+    @Override
+	public String toString() {
       StringBuffer output = new StringBuffer("");
       output.append(writeToStringheader());
       output.append(writeAccountsDetails());
