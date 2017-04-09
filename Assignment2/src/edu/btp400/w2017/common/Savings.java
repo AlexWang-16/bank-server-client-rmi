@@ -10,6 +10,8 @@
  */
 package edu.btp400.w2017.common;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.io.Serializable;
 
  public class Savings extends Account implements Taxable, Serializable {
@@ -308,9 +310,11 @@ import java.io.Serializable;
 	@Override
 	public double getBalance(){
 		this.calculateInterestIncome();
-		BigDecimal finalBalance = new BigDecimal(super.getBalance());
+		double startingBalance = super.getBalance();
+		BigDecimal finalBalance = new BigDecimal(startingBalance);
 		finalBalance = finalBalance.add(this.interestIncome);
-		return finalBalance.doubleValue() ;
+		//FIXME - Precision is lost when returning savings balance as double
+		return finalBalance.doubleValue();
 	}
 
 	/**

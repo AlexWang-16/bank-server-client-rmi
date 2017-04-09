@@ -638,7 +638,7 @@ public class GUIRemoteBankClient extends javax.swing.JFrame {
     }//GEN-LAST:event_jButDeleteAccountActionPerformed
 
     private void jButDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButDisplayActionPerformed
-        String display = "";
+        StringBuffer display = new StringBuffer("");
         if(!"".equals(jTextNameOrBalance.getText()))
         {
             //Search by name
@@ -651,10 +651,12 @@ public class GUIRemoteBankClient extends javax.swing.JFrame {
                     //Display the entries
                     for (Account account: searchResults){
                             displayAccount(account);
-                            display += "Account Details\n" + "====================\n" + account.toString() + "\n\n";
+                            display.append("Account Details\n");
+                            display.append("====================\n");
+                            display.append(String.format("%s\n\n", account.toString()));
                     }
-                    if(searchResults != null)
-                        JOptionPane.showMessageDialog(null, display, "Display Account by Name", JOptionPane.PLAIN_MESSAGE);
+                    
+                    JOptionPane.showMessageDialog(null, display, "Display Account by Name", JOptionPane.PLAIN_MESSAGE);
 
                 }catch (NoAccountException e){
                     JOptionPane.showMessageDialog(null, e, "Display Account by Name", JOptionPane.ERROR_MESSAGE);
@@ -671,17 +673,18 @@ public class GUIRemoteBankClient extends javax.swing.JFrame {
                              //Display
                              for (int i = 0; i < searchResults.size(); i++){
                                      displayAccount(searchResults.get(i));
-                                     display += "Account Details\n" + "====================\n" + account.toString() + "\n\n";
+                                     display.append("Account Details\n");
+                                     display.append("--------------\n");
+                                     display.append(String.format("%s\n\n", searchResults.get(i).toString()));
                              }
-                           
+                             
+                             JOptionPane.showMessageDialog(null, display, "Display Account by Balance", JOptionPane.PLAIN_MESSAGE);
                      }catch (NoAccountException e){
                          JOptionPane.showMessageDialog(null, e, "Display Account by Balance", JOptionPane.ERROR_MESSAGE);
                      }catch (RemoteException e){
                     	 JOptionPane.showMessageDialog(null, "Connection to server lost. Please restart the client and check if the server is online.", "Connection Failure", JOptionPane.ERROR_MESSAGE);
                     	 Logger.getLogger(GUIRemoteBankClient.class.getName()).log(Level.SEVERE, null, e);
                      }
-                     if(display != "")
-                         JOptionPane.showMessageDialog(null, display, "Display Account by Name", JOptionPane.PLAIN_MESSAGE);
             }
         }else{
             JOptionPane.showMessageDialog(null, "Please enter name or balance to display!", "Display Account Error", JOptionPane.ERROR_MESSAGE);

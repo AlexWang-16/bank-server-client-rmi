@@ -162,7 +162,8 @@ public class Bank {
       ArrayList<Account> searchResults = new ArrayList<Account>();
 
       for (Account account : accounts) {
-        if (account.getBalance() == balance) {
+    	  double accBalance = account.getBalance();
+        if (accBalance == balance) {
           searchResults.add(account);
         }
       }
