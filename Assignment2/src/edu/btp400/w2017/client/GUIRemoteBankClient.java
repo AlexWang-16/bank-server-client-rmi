@@ -544,10 +544,11 @@ public class GUIRemoteBankClient extends javax.swing.JFrame {
         		
         		serverBank.addAccount(newAccount);
         		
-        		JOptionPane.showMessageDialog(null, "Account open successfully...\n\n" + newAccount, "Account Info", JOptionPane.PLAIN_MESSAGE);
+        		JOptionPane.showMessageDialog(null, "Account opened successfully...\n\n" + newAccount, "Account Info", JOptionPane.PLAIN_MESSAGE);
         	}catch (NumberFormatException e){
         		JOptionPane.showMessageDialog(null, "Account balance and interest rate must be in double format and cannot be empty.", "Open Account Error", JOptionPane.ERROR_MESSAGE); 
             }catch (RemoteException e){
+            	JOptionPane.showMessageDialog(null, "Connection to server lost. Please restart the client and check if the server is online.", "Connection Failure", JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(GUIRemoteBankClient.class.getName()).log(Level.SEVERE, null, e);
             }
             
@@ -569,6 +570,7 @@ public class GUIRemoteBankClient extends javax.swing.JFrame {
             			+ "\nNumber of transactions allowed must be in integer format."
             			+ "\nAll fields must not be blank.", "CHQ account data error", JOptionPane.ERROR_MESSAGE);
             }catch(RemoteException e){
+            	JOptionPane.showMessageDialog(null, "Connection to server lost. Please restart the client and check if the server is online.", "Connection Failure", JOptionPane.ERROR_MESSAGE);
             	Logger.getLogger(GUIRemoteBankClient.class.getName()).log(Level.SEVERE, null, e);
             }
                 
@@ -590,6 +592,7 @@ public class GUIRemoteBankClient extends javax.swing.JFrame {
 	        			+ "Period of investment must be in integer format.\n"
 	        			+ "All numeric fields must not be empty.", "GIC account data error", JOptionPane.ERROR_MESSAGE);
 	        }catch (RemoteException e){
+	        	JOptionPane.showMessageDialog(null, "Connection to server lost. Please restart the client and check if the server is online.", "Connection Failure", JOptionPane.ERROR_MESSAGE);
 	            Logger.getLogger(GUIRemoteBankClient.class.getName()).log(Level.SEVERE, null, e);
 	        }
 	        
@@ -613,13 +616,18 @@ public class GUIRemoteBankClient extends javax.swing.JFrame {
 				    JOptionPane.showMessageDialog(null, "Delete was not successful!\nPlease ensure account number is correct.", "Delete Account Error", JOptionPane.ERROR_MESSAGE);
 				}
 				else{
-				     displayAccount(account);
-				     JOptionPane.showMessageDialog(null, "Account deleted successfully!\n\n" , "Delete Account", JOptionPane.PLAIN_MESSAGE);
+				     StringBuffer results = new StringBuffer("");
+				     results.append("Deleted Account information\n");
+				     results.append("------------------------\n\n");
+				     results.append(account);
+				     results.append("\nAccount deleted successfully!\n");
+				     JOptionPane.showMessageDialog(null, results, "Delete Account", JOptionPane.PLAIN_MESSAGE);
 				}
 				account = null;
            }
         }catch (RemoteException e){
             Logger.getLogger(GUIRemoteBankClient.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(null, "Connection to server lost. Please restart the client and check if the server is online.", "Connection Failure", JOptionPane.ERROR_MESSAGE);
 
         } catch (NoAccountException e) {
             Logger.getLogger(GUIRemoteBankClient.class.getName()).log(Level.SEVERE, null, e);
@@ -652,6 +660,7 @@ public class GUIRemoteBankClient extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, e, "Display Account by Name", JOptionPane.ERROR_MESSAGE);
                 }catch (RemoteException e){
                     Logger.getLogger(GUIRemoteBankClient.class.getName()).log(Level.SEVERE, null, e);
+                    JOptionPane.showMessageDialog(null, "Connection to server lost. Please restart the client and check if the server is online.", "Connection Failure", JOptionPane.ERROR_MESSAGE);
                 }
             }else
             {
@@ -668,7 +677,8 @@ public class GUIRemoteBankClient extends javax.swing.JFrame {
                      }catch (NoAccountException e){
                          JOptionPane.showMessageDialog(null, e, "Display Account by Balance", JOptionPane.ERROR_MESSAGE);
                      }catch (RemoteException e){
-                         Logger.getLogger(GUIRemoteBankClient.class.getName()).log(Level.SEVERE, null, e);
+                    	 JOptionPane.showMessageDialog(null, "Connection to server lost. Please restart the client and check if the server is online.", "Connection Failure", JOptionPane.ERROR_MESSAGE);
+                    	 Logger.getLogger(GUIRemoteBankClient.class.getName()).log(Level.SEVERE, null, e);
                      }
                      if(display != "")
                          JOptionPane.showMessageDialog(null, display, "Display Account by Name", JOptionPane.PLAIN_MESSAGE);
@@ -726,8 +736,7 @@ public class GUIRemoteBankClient extends javax.swing.JFrame {
 			}catch (NoAccountException e ){
 	                    JOptionPane.showMessageDialog(null, e, "Tax Statement", JOptionPane.ERROR_MESSAGE);
 			}catch (RemoteException e){
-	                    JOptionPane.showMessageDialog(null, "Remote exception occured while searching accounts with name " + accountName + "\nStandby, printing stack trace...", "Error", JOptionPane.ERROR_MESSAGE);
-	                    e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Connection to server lost. Please restart the client and check if the server is online.", "Connection Failure", JOptionPane.ERROR_MESSAGE);
 			}
 		}
     }//GEN-LAST:event_jButTaxStatActionPerformed
