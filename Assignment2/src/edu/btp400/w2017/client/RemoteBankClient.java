@@ -497,7 +497,7 @@ public class RemoteBankClient {
 				}
 			}
 
-			if (numOfStatements > 1){
+			if (numOfStatements > 0){
 				System.out.println("\nTax Statement(s) of " + searchResults[0].getFullName() + '\n');
 			}else{
 				System.out.printf("\n%s does not have any taxable accounts.\n\n", searchResults[0].getFullName());
