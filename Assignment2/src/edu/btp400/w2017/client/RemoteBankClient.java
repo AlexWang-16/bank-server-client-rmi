@@ -539,7 +539,6 @@ public class RemoteBankClient {
 			do{
 				displayMenu("Seneca@York");
 				choice = menuChoice();
-				// TODO - Menu
 				switch (choice){
 				case 1:					//Open an account
 					try{
