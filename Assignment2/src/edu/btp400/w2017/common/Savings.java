@@ -16,9 +16,6 @@ import java.io.Serializable;
 
  public class Savings extends Account implements Taxable, Serializable {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = -8017038525303298031L;
 
 	public static final String ACCOUNT_TYPE = "SAV";
@@ -313,7 +310,7 @@ import java.io.Serializable;
 		double startingBalance = super.getBalance();
 		BigDecimal finalBalance = new BigDecimal(startingBalance);
 		finalBalance = finalBalance.add(this.interestIncome);
-		//FIXME - Precision is lost when returning savings balance as double
+		
 		return finalBalance.doubleValue();
 	}
 

@@ -17,6 +17,8 @@
  * @version 2.2
  */
 package edu.btp400.w2017.common;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class Bank {
@@ -161,11 +163,37 @@ public class Bank {
     public ArrayList<Account> search(double balance) throws NoAccountException {
       ArrayList<Account> searchResults = new ArrayList<Account>();
 
-      for (Account account : accounts) {
+	BigDecimal userRequestBalance = new BigDecimal(balance);
+	userRequestBalance = userRequestBalance.setScale(2, RoundingMode.HALF_UP);
+
+	
+	for (Account account : accounts) {
     	  double accBalance = account.getBalance();
-        if (accBalance == balance) {
-          searchResults.add(account);
-        }
+    	  
+    	  
+    	if (account instanceof Savings){
+    		/* Attn: Savings account balance will be subjected to loss of precision when converting from BigDecimal to double.
+    		 * 		 The solution is to convert all savings balance back into BigDecimal and round it to the nearest hundreds.
+    		 * 		 This increases precision significantly. However, precision beyond 2 decimal place is to be expected and is
+    		 * 		 considered reasonable for our purposes.
+    		 *  
+    		 * 		 The true solution to this problem is use BigDecimal for all currency comparisons and
+    		 * 		 operations to ensure no loss of precision.
+    		 */
+    		
+    		BigDecimal roundedAccBalance = new BigDecimal (accBalance);
+    		roundedAccBalance = roundedAccBalance.setScale(2, RoundingMode.HALF_UP);
+    		
+    		if (roundedAccBalance.equals(userRequestBalance)){
+    			searchResults.add(account);
+    		}
+    		
+    	}else{
+    		if (accBalance == balance) {
+    	          searchResults.add(account);
+    	     }
+    	}
+        
       }
 
       if (searchResults.isEmpty()){
