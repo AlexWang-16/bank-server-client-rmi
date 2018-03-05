@@ -10,4 +10,4 @@ Due to lengthy instructions to compile and launch the client and server, please 
 ![alt text](screenshots/client2.png "Create new account")
 ![alt text](screenshots/client3.png "Display account")
 
-For more screenshots please click into the _screenshots_ folder
+For more screenshots please visit the [_screenshots_ folder](https://github.com/AlexWang-16/bank-server-client-rmi/tree/master/screenshots)
